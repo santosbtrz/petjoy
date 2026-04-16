@@ -1,4 +1,5 @@
 CREATE DATABASE petjoy;
+SET FOREIGN_KEY_CHECKS = 0;
 
 
 -- Estrutura da tabela `usuarios`
@@ -36,7 +37,7 @@ CREATE TABLE animais (
   `idade` INT DEFAULT NULL,
   `sexo` ENUM('Macho', 'Fêmea') DEFAULT NULL,
   `cliente_id` INT NOT NULL,
-  `data_registro` DATE DEFAULT CURRENT_DATE,
+  `data_registro` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`cliente_id`) REFERENCES `usuarios`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -65,7 +66,7 @@ CREATE TABLE vendas (
   `cliente_id` INT NOT NULL,
   `produto_id` INT NOT NULL,
   `quantidade` INT DEFAULT NULL,
-  `data_venda` DATE DEFAULT CURRENT_DATE,
+  `data_venda` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `valor_total` DECIMAL(10, 2) DEFAULT NULL,
   FOREIGN KEY (`cliente_id`) REFERENCES `usuarios`(`id`),
   FOREIGN KEY (`produto_id`) REFERENCES `produtos`(`produto_id`)
@@ -87,6 +88,13 @@ CREATE TABLE agendamentos (
 
 CREATE TABLE admins (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+COMMIT;
+
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
